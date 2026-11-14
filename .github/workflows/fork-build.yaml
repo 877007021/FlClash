@@ -23,10 +23,15 @@ on:
           - android
           - windows
         default: all
-      android_signing:
-        description: 'Sign with repository secrets? (off = generated dev key)'
+      publish:
+        description: 'Publish the artifacts to a GitHub Release'
         type: boolean
-        default: false
+        default: true
+      release_tag:
+        description: 'Release tag (blank = v<version>-build<run number>)'
+        type: string
+        required: false
+        default: ''
   push:
     tags:
       - 'v*'
@@ -67,7 +72,7 @@ jobs:
           java-version: '17'
 
       - name: Restore dev keystore
-        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.android_signing) }}
+        if: ${{ github.event_name != 'workflow_dispatch' || !inputs.android_signing }}
         id: devkeystore
         uses: actions/cache/restore@v4
         with:
@@ -77,22 +82,26 @@ jobs:
           key: flclash-fork-dev-keystore-v1
 
       - name: Setup Android signing
+        id: signing
         shell: bash
         env:
           KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE }}
           KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
           KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
-          USE_REPO_SECRETS: ${{ github.event_name == 'workflow_dispatch' && inputs.android_signing }}
         run: |
           set -euo pipefail
           keystore=android/app/keystore.jks
-          if [[ "${USE_REPO_SECRETS:-false}" == 'true' && -n "${KEYSTORE_B64:-}" ]]; then
+          if [[ -n "${KEYSTORE_B64:-}" ]]; then
+            # The repository keystore is the release identity: an APK signed by
+            # anything else cannot upgrade a build published under it, so it
+            # wins whenever the secrets exist.
             echo "Signing with the repository keystore secrets."
             printf '%s' "$KEYSTORE_B64" | base64 --decode > "$keystore"
             alias="${KEY_ALIAS:?ANDROID_KEY_ALIAS secret is missing}"
             store="${STORE_PASSWORD:?ANDROID_STORE_PASSWORD secret is missing}"
             key="${KEY_PASSWORD:?ANDROID_KEY_PASSWORD secret is missing}"
+            echo 'source=repository' >> "$GITHUB_OUTPUT"
           else
             if [[ -s "$keystore" ]]; then
               echo "Reusing the cached dev keystore."
@@ -110,6 +119,7 @@ jobs:
             alias=flclash-dev
             store=flclash-dev
             key=flclash-dev
+            echo 'source=dev' >> "$GITHUB_OUTPUT"
           fi
           {
             echo "storePassword=$store"
@@ -120,7 +130,10 @@ jobs:
           test -s "$keystore"
 
       - name: Save dev keystore
-        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.android_signing) && steps.devkeystore.outputs.cache-hit != 'true' }}
+        # Only the generated dev key may enter the cache; a run that unpacked
+        # the repository keystore must not write the release private key into
+        # a cache entry that any branch of this repository can restore.
+        if: ${{ steps.signing.outputs.source == 'dev' && steps.devkeystore.outputs.cache-hit != 'true' }}
         uses: actions/cache/save@v4
         with:
           path: android/app/keystore.jks
@@ -259,3 +272,77 @@ jobs:
           path: ./dist
           overwrite: true
           if-no-files-found: error
+
+  publish:
+    name: Publish release
+    needs: [android, windows]
+    # A partial matrix must not publish a release missing a platform, so the
+    # job runs only when both builds ran and succeeded.
+    if: >-
+      !cancelled() &&
+      needs.android.result == 'success' &&
+      needs.windows.result == 'success' &&
+      (github.event_name == 'push' || inputs.publish)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./dist
+          pattern: fork-artifact-*
+          merge-multiple: true
+
+      - name: Name the release
+        id: meta
+        env:
+          INPUT_TAG: ${{ inputs.release_tag }}
+          PUSH_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          if [[ -n "${INPUT_TAG:-}" ]]; then
+            tag="$INPUT_TAG"
+          else
+            # A tag push already carries the version; a manual run has none, so
+            # it gets a per-run tag that sorts by build number.
+            tag="${PUSH_TAG:-}"
+            if [[ ! "$tag" =~ ^v[0-9] ]]; then
+              version="$(sed -n 's/^version: *\([0-9][^+]*\).*/\1/p' pubspec.yaml | head -1)"
+              tag="v${version:-0.0.0}-build${{ github.run_number }}"
+            fi
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "Releasing $tag"
+
+      - name: Checksums
+        run: |
+          set -euo pipefail
+          cd dist
+          sha256sum ./* > SHA256SUMS
+          cat SHA256SUMS
+
+      - name: Publish
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.meta.outputs.tag }}
+          name: ${{ steps.meta.outputs.tag }}
+          target_commitish: ${{ github.sha }}
+          files: ./dist/*
+          fail_on_unmatched_files: true
+          body: |
+            Automated build from `${{ github.sha }}`.
+
+            | Platform | File |
+            | --- | --- |
+            | Android (arm64-v8a) | `FlClash-*-android-arm64-v8a.apk` |
+            | Android (armeabi-v7a) | `FlClash-*-android-armeabi-v7a.apk` |
+            | Android (x86_64) | `FlClash-*-android-x86_64.apk` |
+            | Windows amd64 | `FlClash-*-windows-amd64-setup.exe` / `-windows-amd64.zip` |
+
+            APKs are signed with the repository release keystore, so they upgrade
+            in place over earlier builds published here. `SHA256SUMS` covers every
+            file in this release.
