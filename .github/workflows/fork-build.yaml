@@ -216,6 +216,22 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           cache: true
 
+      - name: Setup Inno Setup
+        shell: pwsh
+        run: |
+          # The exe target shells out to ISCC.exe. The runner image ships
+          # Inno Setup 6, but the workflow pins it so a runner image bump
+          # cannot silently drop the tool the packaging step needs.
+          $iscc = 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe'
+          if (-not (Test-Path $iscc)) {
+            choco install innosetup --no-progress -y
+          }
+          if (-not (Test-Path $iscc)) {
+            throw "ISCC.exe not found at $iscc"
+          }
+          & $iscc /? | Select-Object -First 1
+          Write-Output "Inno Setup ready: $iscc"
+
       - name: Stamp build number
         run: python tool/ci_bump_build.py
 
