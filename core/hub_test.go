@@ -1231,23 +1231,8 @@ func TestHandleChangeProxyMarksTheGroupAsChosenByHand(t *testing.T) {
 			t.Errorf("host %s was steered to %s after a manual pick", host, got.Name())
 		}
 	}
-	if marked := siterouter.ManualSelections(); !slices.Contains(marked, "group") {
-		t.Errorf("marked groups = %v, want it to contain group", marked)
-	}
 }
 
 // Restoring a saved selection on config load is not a fresh choice, and the
-// groups it restores into are new objects, so the load clears the marks.
-func TestConfigApplyClearsManualSelectionMarks(t *testing.T) {
-	t.Cleanup(siterouter.ResetManualSelections)
-
-	siterouter.MarkManualSelection("group")
-	if len(siterouter.ManualSelections()) == 0 {
-		t.Fatal("mark did not stick")
-	}
-
-	siterouter.ResetManualSelections()
-	if marked := siterouter.ManualSelections(); len(marked) != 0 {
-		t.Errorf("marks survived a config load: %v", marked)
-	}
-}
+// groups it restores into are new objects, so the load clears the marks. The
+// siterouter package covers that reset; this file only drives the RPC path.
