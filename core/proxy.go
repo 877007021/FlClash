@@ -13,6 +13,7 @@ import (
 	"github.com/metacubex/mihomo/adapter/outboundgroup"
 	"github.com/metacubex/mihomo/adapter/provider"
 	"github.com/metacubex/mihomo/common/convert"
+	"github.com/metacubex/mihomo/component/siterouter"
 	"github.com/metacubex/mihomo/config"
 	"github.com/metacubex/mihomo/constant"
 	"github.com/metacubex/mihomo/log"
@@ -199,6 +200,13 @@ func handleChangeProxy(params *ChangeProxyParams) *ChangeProxyResult {
 	}
 	changed := selector.Now() != before
 	refreshRouteLocked(routeUnchanged)
+	// The user just picked a member of this group by hand. Record it so the
+	// per-site learning stops steering the traffic this group carries: a
+	// manual pick outranks a ranking, and only this RPC means "the user
+	// chose", not the config restore path.
+	if params.ProxyName != "" {
+		siterouter.MarkManualSelection(params.GroupName)
+	}
 	return &ChangeProxyResult{Changed: changed}
 }
 

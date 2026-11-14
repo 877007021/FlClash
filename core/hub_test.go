@@ -27,6 +27,7 @@ import (
 	"github.com/metacubex/mihomo/common/utils"
 	"github.com/metacubex/mihomo/component/age"
 	"github.com/metacubex/mihomo/component/resolver"
+	"github.com/metacubex/mihomo/component/siterouter"
 	"github.com/metacubex/mihomo/config"
 	"github.com/metacubex/mihomo/constant"
 	cp "github.com/metacubex/mihomo/constant/provider"
@@ -1180,5 +1181,73 @@ func TestDumpRuleSetRejectsText(t *testing.T) {
 	}
 	if _, err := handleDumpRuleSet(PathParams{Path: path}); err == nil {
 		t.Fatal("dumping a text rule set succeeded")
+	}
+}
+
+// Picking a member by hand outranks the per-site learning: the user said which
+// exit to use, so the learned table must not swap it out on the next dial.
+func TestHandleChangeProxyMarksTheGroupAsChosenByHand(t *testing.T) {
+	t.Cleanup(siterouter.ResetManualSelections)
+	t.Cleanup(func() { siterouter.Set(nil) })
+
+	group := selectorGroup(t, "group", "node-a", "node-b")
+	tunnel.UpdateProxies(map[string]constant.Proxy{"group": group}, nil)
+	t.Cleanup(func() { tunnel.UpdateProxies(nil, nil) })
+
+	siterouter.Set(map[string]string{"example.com": "node-b"})
+	proxies := map[string]constant.Proxy{
+		"group":  group,
+		"node-a": namedProxy("node-a"),
+		"node-b": namedProxy("node-b"),
+	}
+
+	// The table keeps an open share that deliberately falls back to the rule's
+	// own pick, so a single lookup can match either branch. Sample enough
+	// hosts to see both: at least one must be steered before the pick.
+	steeredBefore := false
+	for _, host := range []string{
+		"a.example.com", "b.example.com", "c.example.com",
+		"d.example.com", "e.example.com",
+	} {
+		if got := siterouter.ApplyHostOverride(group, proxies, host); got.Name() == "node-b" {
+			steeredBefore = true
+			break
+		}
+	}
+	if !steeredBefore {
+		t.Fatal("the site table never steered any host to node-b, so the case cannot show steering stopping")
+	}
+
+	if res := handleChangeProxy(&ChangeProxyParams{GroupName: "group", ProxyName: "node-b"}); res.Message != "" {
+		t.Fatalf("changeProxy failed: %s", res.Message)
+	}
+
+	// After the pick, no host may be moved off the group.
+	for _, host := range []string{
+		"a.example.com", "b.example.com", "c.example.com",
+		"d.example.com", "e.example.com", "f.example.com", "g.example.com",
+	} {
+		if got := siterouter.ApplyHostOverride(group, proxies, host); got.Name() != "group" {
+			t.Errorf("host %s was steered to %s after a manual pick", host, got.Name())
+		}
+	}
+	if marked := siterouter.ManualSelections(); !slices.Contains(marked, "group") {
+		t.Errorf("marked groups = %v, want it to contain group", marked)
+	}
+}
+
+// Restoring a saved selection on config load is not a fresh choice, and the
+// groups it restores into are new objects, so the load clears the marks.
+func TestConfigApplyClearsManualSelectionMarks(t *testing.T) {
+	t.Cleanup(siterouter.ResetManualSelections)
+
+	siterouter.MarkManualSelection("group")
+	if len(siterouter.ManualSelections()) == 0 {
+		t.Fatal("mark did not stick")
+	}
+
+	siterouter.ResetManualSelections()
+	if marked := siterouter.ManualSelections(); len(marked) != 0 {
+		t.Errorf("marks survived a config load: %v", marked)
 	}
 }

@@ -15,6 +15,7 @@ import (
 	"github.com/metacubex/mihomo/component/auth"
 	"github.com/metacubex/mihomo/component/dialer"
 	"github.com/metacubex/mihomo/component/resolver"
+	"github.com/metacubex/mihomo/component/siterouter"
 	"github.com/metacubex/mihomo/config"
 	"github.com/metacubex/mihomo/constant"
 	"github.com/metacubex/mihomo/hub"
@@ -162,6 +163,11 @@ func applyConfig(params *SetupParams) error {
 
 	currentConfig = cfg
 	hub.ApplyConfig(cfg)
+	// ApplyConfig rebuilds every group object, and the restore below writes
+	// the saved selections. A mark from a previous config could name a group
+	// that no longer exists or that is now automatic, so start clean: only a
+	// fresh pick through the proxy.select RPC marks a group again.
+	siterouter.ResetManualSelections()
 	patchSelectGroup(params.SelectedMap)
 	bumpRouteEpoch()
 	updateListeners(cfg)
