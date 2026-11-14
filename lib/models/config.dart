@@ -277,6 +277,7 @@ abstract class AppSettingProps with _$AppSettingProps {
     @Default([]) List<String> disabledServices,
     @Default({}) Map<String, Map<String, double>> tableColumnWidths,
     @Default({}) Map<String, String> recordGroupings,
+    @Default(false) bool autoSiteNodeSwitch,
   }) = _AppSettingProps;
 
   factory AppSettingProps.fromJson(Map<String, Object?> json) =>

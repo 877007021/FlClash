@@ -10,4 +10,5 @@ export 'logs.dart';
 export 'profiles/profiles.dart';
 export 'proxies/proxies.dart';
 export 'resources.dart';
+export 'site_stats.dart';
 export 'tools.dart';

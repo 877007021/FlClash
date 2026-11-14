@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:fl_clash/common/common.dart';
 import 'package:fl_clash/core/core.dart';
+import 'package:fl_clash/database/database.dart';
 import 'package:fl_clash/enum/enum.dart';
 import 'package:fl_clash/models/models.dart';
 import 'package:fl_clash/providers/action.dart';
@@ -10,6 +11,8 @@ import 'package:fl_clash/providers/config.dart';
 import 'package:fl_clash/providers/core.dart';
 import 'package:fl_clash/providers/database.dart';
 import 'package:fl_clash/providers/route_state.dart';
+import 'package:fl_clash/features/site_stats/site_stats.dart';
+import 'package:fl_clash/features/site_stats/site_switcher.dart';
 import 'package:fl_clash/providers/state.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,6 +30,10 @@ class CoreManager extends ConsumerStatefulWidget {
 class _CoreContainerState extends ConsumerState<CoreManager>
     with CoreEventListener {
   CoreController get _core => ref.read(coreHandlerProvider);
+
+  final _siteTracker = SiteConnectionTracker();
+  StreamSubscription? _siteClosedSub;
+  SiteSwitcher? _siteSwitcher;
 
   @override
   Widget build(BuildContext context) {
@@ -89,12 +96,61 @@ class _CoreContainerState extends ConsumerState<CoreManager>
         _syncLogStream();
       }
     });
-    // Every Core process starts without a log stream.
+    // Every Core process starts without a log stream, and without a site
+    // override table: a fresh connect re-pushes whatever the learning has.
     ref.listenManual(coreStatusProvider, (prev, next) {
       if (next == CoreStatus.connected && prev != CoreStatus.connected) {
         _syncLogStream();
+        if (ref.read(appSettingProvider).autoSiteNodeSwitch) {
+          _siteSwitcher?.refresh();
+        }
       }
     }, fireImmediately: true);
+    _siteTracker.bindSnapshotReader(() => _core.getConnections());
+    _siteClosedSub = _siteTracker.closed.listen(_saveClosedSiteConnections);
+    _siteTracker.start();
+    ref.listenManual(
+      appSettingProvider.select((state) => state.autoSiteNodeSwitch),
+      (prev, next) {
+        if (prev == next) {
+          return;
+        }
+        if (next) {
+          _siteSwitcher = SiteSwitcher(_core);
+          _siteSwitcher?.refresh();
+        } else {
+          // Off means the core must stop steering: clear its table.
+          unawaited(_core.setSiteOverrides(const {}));
+          _siteSwitcher?.dispose();
+          _siteSwitcher = null;
+        }
+      },
+      fireImmediately: true,
+    );
+  }
+
+  Future<void> _saveClosedSiteConnections(
+    List<ClosedSiteConnection> closed,
+  ) async {
+    for (final item in closed) {
+      try {
+        await database.siteNodeStatsDao.recordClosedConnection(
+          site: item.site,
+          node: item.node,
+          host: item.host,
+          duration: item.duration,
+          download: item.download,
+          upload: item.upload,
+          start: item.start,
+        );
+      } catch (error, stackTrace) {
+        commonPrint.log(
+          'site stats write failed: $error, $stackTrace',
+          logLevel: LogLevel.warning,
+        );
+      }
+      _siteSwitcher?.siteStatsChanged(item.site);
+    }
   }
 
   void _syncLogStream() {
@@ -110,6 +166,9 @@ class _CoreContainerState extends ConsumerState<CoreManager>
 
   @override
   void dispose() {
+    _siteTracker.dispose();
+    _siteSwitcher?.dispose();
+    unawaited(_siteClosedSub?.cancel());
     coreEventManager.removeListener(this);
     super.dispose();
   }
@@ -156,12 +215,14 @@ class _CoreContainerState extends ConsumerState<CoreManager>
   void onRequest(TrackerInfo trackerInfo) async {
     ref.read(requestsProvider.notifier).addRequest(trackerInfo);
     ref.read(requestCountProvider.notifier).update((count) => count + 1);
+    _siteTracker.onRequest(trackerInfo);
     super.onRequest(trackerInfo);
   }
 
   @override
   void onRequestTraffic(Map<String, RequestTraffic> traffic) {
     ref.read(requestsProvider.notifier).updateTraffic(traffic);
+    _siteTracker.onRequestTraffic(traffic);
     super.onRequestTraffic(traffic);
   }
 

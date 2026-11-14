@@ -334,6 +334,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "자동 시작은 앱을 열 때 프록시를 시작합니다.",
     ),
     "autoSetSystemDns": MessageLookupByLibrary.simpleMessage("시스템 DNS 자동 설정"),
+    "autoSiteNodeSwitch": MessageLookupByLibrary.simpleMessage("사이트별 노드 자동 전환"),
+    "autoSiteNodeSwitchTip": MessageLookupByLibrary.simpleMessage(
+      "고정 속도 테스트 대신 기록된 기록을 기반으로 각 사이트의 노드를 선택합니다",
+    ),
     "autoUpdate": MessageLookupByLibrary.simpleMessage("자동 업데이트"),
     "autoUpdateInterval": MessageLookupByLibrary.simpleMessage("자동 업데이트 간격"),
     "back": MessageLookupByLibrary.simpleMessage("뒤로"),
@@ -1370,6 +1374,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "recordType": MessageLookupByLibrary.simpleMessage("레코드 유형"),
     "redirPort": MessageLookupByLibrary.simpleMessage("Redir 포트"),
     "redo": MessageLookupByLibrary.simpleMessage("다시 실행"),
+    "refresh": MessageLookupByLibrary.simpleMessage("새로고침"),
     "regenerateCertificate": MessageLookupByLibrary.simpleMessage("인증서 다시 생성"),
     "regenerateCertificateTip": MessageLookupByLibrary.simpleMessage(
       "새 인증서가 현재 인증서를 대체하며, FlClash는 가능한 경우 현재 인증서를 이 기기의 신뢰할 수 있는 루트에서 제거합니다. 현재 인증서를 신뢰하는 다른 모든 기기에는 새 인증서를 설치해야 합니다.",
@@ -1646,6 +1651,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "여기에는 링크를 하나만 입력하세요. 여러 개는 목록의 빠른 편집에서 편집하세요",
     ),
     "singleValueTip": m94,
+    "siteStats": MessageLookupByLibrary.simpleMessage("사이트 통계"),
+    "siteStatsEmpty": MessageLookupByLibrary.simpleMessage("사이트 기록이 아직 없습니다"),
     "size": MessageLookupByLibrary.simpleMessage("크기"),
     "skipCertVerify": MessageLookupByLibrary.simpleMessage("인증서 검증 건너뛰기"),
     "skipDomain": MessageLookupByLibrary.simpleMessage("건너뛸 도메인"),

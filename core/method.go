@@ -199,6 +199,7 @@ var methodHandlers = map[CoreMethod]methodHandler{
 	profileClearEffectMethod: command(handleClearEffect),
 
 	proxyListMethod:       withoutArguments(handleGetProxies),
+	siteOverridesMethod:   command(handleSetSiteOverrides),
 	proxySelectMethod:     withArguments(handleChangeProxy),
 	proxyDefinitionMethod: withFallible(handleGetProxyDefinition),
 	proxyTestDelayMethod:  withArguments(handleTestDelay),

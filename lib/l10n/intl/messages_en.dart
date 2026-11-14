@@ -387,6 +387,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "autoSetSystemDns": MessageLookupByLibrary.simpleMessage(
       "Auto-set system DNS",
     ),
+    "autoSiteNodeSwitch": MessageLookupByLibrary.simpleMessage(
+      "Auto site node switching",
+    ),
+    "autoSiteNodeSwitchTip": MessageLookupByLibrary.simpleMessage(
+      "Pick each site\'s node from the recorded history instead of a fixed speed test",
+    ),
     "autoUpdate": MessageLookupByLibrary.simpleMessage("Auto update"),
     "autoUpdateInterval": MessageLookupByLibrary.simpleMessage(
       "Auto-update interval",
@@ -1624,6 +1630,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "recordType": MessageLookupByLibrary.simpleMessage("Record type"),
     "redirPort": MessageLookupByLibrary.simpleMessage("Redir port"),
     "redo": MessageLookupByLibrary.simpleMessage("Redo"),
+    "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
     "regenerateCertificate": MessageLookupByLibrary.simpleMessage(
       "Regenerate certificate",
     ),
@@ -1952,6 +1959,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Enter one link here; edit several from the quick edit of the list",
     ),
     "singleValueTip": m94,
+    "siteStats": MessageLookupByLibrary.simpleMessage("Site Statistics"),
+    "siteStatsEmpty": MessageLookupByLibrary.simpleMessage(
+      "No site records yet",
+    ),
     "size": MessageLookupByLibrary.simpleMessage("Size"),
     "skipCertVerify": MessageLookupByLibrary.simpleMessage(
       "Skip certificate verification",

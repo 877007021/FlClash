@@ -324,6 +324,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "autoRun": MessageLookupByLibrary.simpleMessage("自动运行"),
     "autoRunDesc": MessageLookupByLibrary.simpleMessage("自动运行会在打开应用时启动代理。"),
     "autoSetSystemDns": MessageLookupByLibrary.simpleMessage("自动设置系统DNS"),
+    "autoSiteNodeSwitch": MessageLookupByLibrary.simpleMessage("站点节点自动切换"),
+    "autoSiteNodeSwitchTip": MessageLookupByLibrary.simpleMessage(
+      "根据站点历史记录自动选择节点,而非固定测速",
+    ),
     "autoUpdate": MessageLookupByLibrary.simpleMessage("自动更新"),
     "autoUpdateInterval": MessageLookupByLibrary.simpleMessage("自动更新间隔"),
     "back": MessageLookupByLibrary.simpleMessage("返回"),
@@ -1266,6 +1270,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "recordType": MessageLookupByLibrary.simpleMessage("记录类型"),
     "redirPort": MessageLookupByLibrary.simpleMessage("Redir端口"),
     "redo": MessageLookupByLibrary.simpleMessage("重做"),
+    "refresh": MessageLookupByLibrary.simpleMessage("刷新"),
     "regenerateCertificate": MessageLookupByLibrary.simpleMessage("重新生成证书"),
     "regenerateCertificateTip": MessageLookupByLibrary.simpleMessage(
       "新证书会替换当前证书，FlClash 会尽量把当前证书从本机信任的根证书中移除。信任当前证书的其他设备都需要安装新证书。",
@@ -1516,6 +1521,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "这里只能填写一条链接，多条请在列表的快速编辑中填写",
     ),
     "singleValueTip": m94,
+    "siteStats": MessageLookupByLibrary.simpleMessage("站点统计"),
+    "siteStatsEmpty": MessageLookupByLibrary.simpleMessage("暂无站点记录"),
     "size": MessageLookupByLibrary.simpleMessage("尺寸"),
     "skipCertVerify": MessageLookupByLibrary.simpleMessage("跳过证书验证"),
     "skipDomain": MessageLookupByLibrary.simpleMessage("跳过域名"),

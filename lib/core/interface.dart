@@ -177,6 +177,14 @@ abstract class CoreHandlerInterface {
     );
   }
 
+  /// Replaces the core's whole site→proxy table. An empty map clears it.
+  Future<void> setSiteOverrides(Map<String, String> overrides) {
+    return _command(
+      CoreMethod.siteOverrides,
+      arguments: {'overrides': overrides},
+    );
+  }
+
   Future<Map<String, dynamic>?> getProxyDefinition(String name) {
     return _find(CoreMethod.proxyDefinition, _json, arguments: {'name': name});
   }

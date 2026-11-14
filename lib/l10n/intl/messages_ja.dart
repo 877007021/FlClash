@@ -334,6 +334,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "自動実行はアプリを開いたときにプロキシを開始します。",
     ),
     "autoSetSystemDns": MessageLookupByLibrary.simpleMessage("システムDNSを自動設定"),
+    "autoSiteNodeSwitch": MessageLookupByLibrary.simpleMessage("サイト別ノード自動切替"),
+    "autoSiteNodeSwitchTip": MessageLookupByLibrary.simpleMessage(
+      "固定スピードテストではなく記録された履歴から各サイトのノードを選択します",
+    ),
     "autoUpdate": MessageLookupByLibrary.simpleMessage("自動更新"),
     "autoUpdateInterval": MessageLookupByLibrary.simpleMessage("自動更新間隔"),
     "back": MessageLookupByLibrary.simpleMessage("戻る"),
@@ -1392,6 +1396,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "recordType": MessageLookupByLibrary.simpleMessage("レコードタイプ"),
     "redirPort": MessageLookupByLibrary.simpleMessage("Redirポート"),
     "redo": MessageLookupByLibrary.simpleMessage("やり直す"),
+    "refresh": MessageLookupByLibrary.simpleMessage("更新"),
     "regenerateCertificate": MessageLookupByLibrary.simpleMessage("証明書を再生成"),
     "regenerateCertificateTip": MessageLookupByLibrary.simpleMessage(
       "新しい証明書が現在の証明書を置き換えます。FlClash は可能な場合、現在の証明書をこのデバイスの信頼されたルートから削除します。現在の証明書を信頼している他のデバイスには、新しい証明書をインストールする必要があります。",
@@ -1676,6 +1681,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "ここにはリンクを 1 つだけ入力してください。複数の場合は一覧のクイック編集を使ってください",
     ),
     "singleValueTip": m94,
+    "siteStats": MessageLookupByLibrary.simpleMessage("サイト統計"),
+    "siteStatsEmpty": MessageLookupByLibrary.simpleMessage("サイトの記録はまだありません"),
     "size": MessageLookupByLibrary.simpleMessage("サイズ"),
     "skipCertVerify": MessageLookupByLibrary.simpleMessage("証明書の検証をスキップ"),
     "skipDomain": MessageLookupByLibrary.simpleMessage("スキップするドメイン"),

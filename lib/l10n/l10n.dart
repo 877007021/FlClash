@@ -110,6 +110,51 @@ class AppLocalizations {
     return Intl.message('Resources', name: 'resources', desc: '', args: []);
   }
 
+  /// `Site Statistics`
+  String get siteStats {
+    return Intl.message(
+      'Site Statistics',
+      name: 'siteStats',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refresh`
+  String get refresh {
+    return Intl.message('Refresh', name: 'refresh', desc: '', args: []);
+  }
+
+  /// `Auto site node switching`
+  String get autoSiteNodeSwitch {
+    return Intl.message(
+      'Auto site node switching',
+      name: 'autoSiteNodeSwitch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick each site's node from the recorded history instead of a fixed speed test`
+  String get autoSiteNodeSwitchTip {
+    return Intl.message(
+      'Pick each site\'s node from the recorded history instead of a fixed speed test',
+      name: 'autoSiteNodeSwitchTip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No site records yet`
+  String get siteStatsEmpty {
+    return Intl.message(
+      'No site records yet',
+      name: 'siteStatsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Traffic usage`
   String get trafficUsage {
     return Intl.message(

@@ -5241,6 +5241,1106 @@ class MitmModulesCompanion extends UpdateCompanion<RawMitmModule> {
   }
 }
 
+class $SiteNodeStatsTable extends SiteNodeStats
+    with TableInfo<$SiteNodeStatsTable, SiteNodeStat> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SiteNodeStatsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _siteMeta = const VerificationMeta('site');
+  @override
+  late final GeneratedColumn<String> site = GeneratedColumn<String>(
+    'site',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _nodeMeta = const VerificationMeta('node');
+  @override
+  late final GeneratedColumn<String> node = GeneratedColumn<String>(
+    'node',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _speedEwmaMeta = const VerificationMeta(
+    'speedEwma',
+  );
+  @override
+  late final GeneratedColumn<double> speedEwma = GeneratedColumn<double>(
+    'speed_ewma',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _durationEwmaMeta = const VerificationMeta(
+    'durationEwma',
+  );
+  @override
+  late final GeneratedColumn<double> durationEwma = GeneratedColumn<double>(
+    'duration_ewma',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _successCountMeta = const VerificationMeta(
+    'successCount',
+  );
+  @override
+  late final GeneratedColumn<int> successCount = GeneratedColumn<int>(
+    'success_count',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _failureCountMeta = const VerificationMeta(
+    'failureCount',
+  );
+  @override
+  late final GeneratedColumn<int> failureCount = GeneratedColumn<int>(
+    'failure_count',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _totalDownloadMeta = const VerificationMeta(
+    'totalDownload',
+  );
+  @override
+  late final GeneratedColumn<int> totalDownload = GeneratedColumn<int>(
+    'total_download',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _lastUsedAtMeta = const VerificationMeta(
+    'lastUsedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> lastUsedAt = GeneratedColumn<DateTime>(
+    'last_used_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    site,
+    node,
+    speedEwma,
+    durationEwma,
+    successCount,
+    failureCount,
+    totalDownload,
+    lastUsedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'site_node_stats';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SiteNodeStat> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('site')) {
+      context.handle(
+        _siteMeta,
+        site.isAcceptableOrUnknown(data['site']!, _siteMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_siteMeta);
+    }
+    if (data.containsKey('node')) {
+      context.handle(
+        _nodeMeta,
+        node.isAcceptableOrUnknown(data['node']!, _nodeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nodeMeta);
+    }
+    if (data.containsKey('speed_ewma')) {
+      context.handle(
+        _speedEwmaMeta,
+        speedEwma.isAcceptableOrUnknown(data['speed_ewma']!, _speedEwmaMeta),
+      );
+    }
+    if (data.containsKey('duration_ewma')) {
+      context.handle(
+        _durationEwmaMeta,
+        durationEwma.isAcceptableOrUnknown(
+          data['duration_ewma']!,
+          _durationEwmaMeta,
+        ),
+      );
+    }
+    if (data.containsKey('success_count')) {
+      context.handle(
+        _successCountMeta,
+        successCount.isAcceptableOrUnknown(
+          data['success_count']!,
+          _successCountMeta,
+        ),
+      );
+    }
+    if (data.containsKey('failure_count')) {
+      context.handle(
+        _failureCountMeta,
+        failureCount.isAcceptableOrUnknown(
+          data['failure_count']!,
+          _failureCountMeta,
+        ),
+      );
+    }
+    if (data.containsKey('total_download')) {
+      context.handle(
+        _totalDownloadMeta,
+        totalDownload.isAcceptableOrUnknown(
+          data['total_download']!,
+          _totalDownloadMeta,
+        ),
+      );
+    }
+    if (data.containsKey('last_used_at')) {
+      context.handle(
+        _lastUsedAtMeta,
+        lastUsedAt.isAcceptableOrUnknown(
+          data['last_used_at']!,
+          _lastUsedAtMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_lastUsedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {site, node};
+  @override
+  SiteNodeStat map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SiteNodeStat(
+      site: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}site'],
+      )!,
+      node: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}node'],
+      )!,
+      speedEwma: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}speed_ewma'],
+      )!,
+      durationEwma: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}duration_ewma'],
+      )!,
+      successCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}success_count'],
+      )!,
+      failureCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}failure_count'],
+      )!,
+      totalDownload: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}total_download'],
+      )!,
+      lastUsedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}last_used_at'],
+      )!,
+    );
+  }
+
+  @override
+  $SiteNodeStatsTable createAlias(String alias) {
+    return $SiteNodeStatsTable(attachedDatabase, alias);
+  }
+}
+
+class SiteNodeStat extends DataClass implements Insertable<SiteNodeStat> {
+  /// Normalized host, e.g. `example.com` without a leading dot or scheme.
+  final String site;
+
+  /// Exit node or nested group name, the first chain element.
+  final String node;
+
+  /// Exponentially weighted mean of per-connection throughput, bytes per
+  /// second.
+  final double speedEwma;
+
+  /// Exponentially weighted mean of connection duration, milliseconds.
+  final double durationEwma;
+
+  /// Connections that finished with traffic flowing, the sample count the
+  /// EWMA values above are computed over.
+  final int successCount;
+
+  /// Connections that closed with zero bytes downloaded.
+  final int failureCount;
+
+  /// Total bytes downloaded through this pair, for ranking and display.
+  final int totalDownload;
+
+  /// Last time a connection for this pair closed.
+  final DateTime lastUsedAt;
+  const SiteNodeStat({
+    required this.site,
+    required this.node,
+    required this.speedEwma,
+    required this.durationEwma,
+    required this.successCount,
+    required this.failureCount,
+    required this.totalDownload,
+    required this.lastUsedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['site'] = Variable<String>(site);
+    map['node'] = Variable<String>(node);
+    map['speed_ewma'] = Variable<double>(speedEwma);
+    map['duration_ewma'] = Variable<double>(durationEwma);
+    map['success_count'] = Variable<int>(successCount);
+    map['failure_count'] = Variable<int>(failureCount);
+    map['total_download'] = Variable<int>(totalDownload);
+    map['last_used_at'] = Variable<DateTime>(lastUsedAt);
+    return map;
+  }
+
+  SiteNodeStatsCompanion toCompanion(bool nullToAbsent) {
+    return SiteNodeStatsCompanion(
+      site: Value(site),
+      node: Value(node),
+      speedEwma: Value(speedEwma),
+      durationEwma: Value(durationEwma),
+      successCount: Value(successCount),
+      failureCount: Value(failureCount),
+      totalDownload: Value(totalDownload),
+      lastUsedAt: Value(lastUsedAt),
+    );
+  }
+
+  factory SiteNodeStat.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SiteNodeStat(
+      site: serializer.fromJson<String>(json['site']),
+      node: serializer.fromJson<String>(json['node']),
+      speedEwma: serializer.fromJson<double>(json['speedEwma']),
+      durationEwma: serializer.fromJson<double>(json['durationEwma']),
+      successCount: serializer.fromJson<int>(json['successCount']),
+      failureCount: serializer.fromJson<int>(json['failureCount']),
+      totalDownload: serializer.fromJson<int>(json['totalDownload']),
+      lastUsedAt: serializer.fromJson<DateTime>(json['lastUsedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'site': serializer.toJson<String>(site),
+      'node': serializer.toJson<String>(node),
+      'speedEwma': serializer.toJson<double>(speedEwma),
+      'durationEwma': serializer.toJson<double>(durationEwma),
+      'successCount': serializer.toJson<int>(successCount),
+      'failureCount': serializer.toJson<int>(failureCount),
+      'totalDownload': serializer.toJson<int>(totalDownload),
+      'lastUsedAt': serializer.toJson<DateTime>(lastUsedAt),
+    };
+  }
+
+  SiteNodeStat copyWith({
+    String? site,
+    String? node,
+    double? speedEwma,
+    double? durationEwma,
+    int? successCount,
+    int? failureCount,
+    int? totalDownload,
+    DateTime? lastUsedAt,
+  }) => SiteNodeStat(
+    site: site ?? this.site,
+    node: node ?? this.node,
+    speedEwma: speedEwma ?? this.speedEwma,
+    durationEwma: durationEwma ?? this.durationEwma,
+    successCount: successCount ?? this.successCount,
+    failureCount: failureCount ?? this.failureCount,
+    totalDownload: totalDownload ?? this.totalDownload,
+    lastUsedAt: lastUsedAt ?? this.lastUsedAt,
+  );
+  SiteNodeStat copyWithCompanion(SiteNodeStatsCompanion data) {
+    return SiteNodeStat(
+      site: data.site.present ? data.site.value : this.site,
+      node: data.node.present ? data.node.value : this.node,
+      speedEwma: data.speedEwma.present ? data.speedEwma.value : this.speedEwma,
+      durationEwma: data.durationEwma.present
+          ? data.durationEwma.value
+          : this.durationEwma,
+      successCount: data.successCount.present
+          ? data.successCount.value
+          : this.successCount,
+      failureCount: data.failureCount.present
+          ? data.failureCount.value
+          : this.failureCount,
+      totalDownload: data.totalDownload.present
+          ? data.totalDownload.value
+          : this.totalDownload,
+      lastUsedAt: data.lastUsedAt.present
+          ? data.lastUsedAt.value
+          : this.lastUsedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SiteNodeStat(')
+          ..write('site: $site, ')
+          ..write('node: $node, ')
+          ..write('speedEwma: $speedEwma, ')
+          ..write('durationEwma: $durationEwma, ')
+          ..write('successCount: $successCount, ')
+          ..write('failureCount: $failureCount, ')
+          ..write('totalDownload: $totalDownload, ')
+          ..write('lastUsedAt: $lastUsedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    site,
+    node,
+    speedEwma,
+    durationEwma,
+    successCount,
+    failureCount,
+    totalDownload,
+    lastUsedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SiteNodeStat &&
+          other.site == this.site &&
+          other.node == this.node &&
+          other.speedEwma == this.speedEwma &&
+          other.durationEwma == this.durationEwma &&
+          other.successCount == this.successCount &&
+          other.failureCount == this.failureCount &&
+          other.totalDownload == this.totalDownload &&
+          other.lastUsedAt == this.lastUsedAt);
+}
+
+class SiteNodeStatsCompanion extends UpdateCompanion<SiteNodeStat> {
+  final Value<String> site;
+  final Value<String> node;
+  final Value<double> speedEwma;
+  final Value<double> durationEwma;
+  final Value<int> successCount;
+  final Value<int> failureCount;
+  final Value<int> totalDownload;
+  final Value<DateTime> lastUsedAt;
+  final Value<int> rowid;
+  const SiteNodeStatsCompanion({
+    this.site = const Value.absent(),
+    this.node = const Value.absent(),
+    this.speedEwma = const Value.absent(),
+    this.durationEwma = const Value.absent(),
+    this.successCount = const Value.absent(),
+    this.failureCount = const Value.absent(),
+    this.totalDownload = const Value.absent(),
+    this.lastUsedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SiteNodeStatsCompanion.insert({
+    required String site,
+    required String node,
+    this.speedEwma = const Value.absent(),
+    this.durationEwma = const Value.absent(),
+    this.successCount = const Value.absent(),
+    this.failureCount = const Value.absent(),
+    this.totalDownload = const Value.absent(),
+    required DateTime lastUsedAt,
+    this.rowid = const Value.absent(),
+  }) : site = Value(site),
+       node = Value(node),
+       lastUsedAt = Value(lastUsedAt);
+  static Insertable<SiteNodeStat> custom({
+    Expression<String>? site,
+    Expression<String>? node,
+    Expression<double>? speedEwma,
+    Expression<double>? durationEwma,
+    Expression<int>? successCount,
+    Expression<int>? failureCount,
+    Expression<int>? totalDownload,
+    Expression<DateTime>? lastUsedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (site != null) 'site': site,
+      if (node != null) 'node': node,
+      if (speedEwma != null) 'speed_ewma': speedEwma,
+      if (durationEwma != null) 'duration_ewma': durationEwma,
+      if (successCount != null) 'success_count': successCount,
+      if (failureCount != null) 'failure_count': failureCount,
+      if (totalDownload != null) 'total_download': totalDownload,
+      if (lastUsedAt != null) 'last_used_at': lastUsedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SiteNodeStatsCompanion copyWith({
+    Value<String>? site,
+    Value<String>? node,
+    Value<double>? speedEwma,
+    Value<double>? durationEwma,
+    Value<int>? successCount,
+    Value<int>? failureCount,
+    Value<int>? totalDownload,
+    Value<DateTime>? lastUsedAt,
+    Value<int>? rowid,
+  }) {
+    return SiteNodeStatsCompanion(
+      site: site ?? this.site,
+      node: node ?? this.node,
+      speedEwma: speedEwma ?? this.speedEwma,
+      durationEwma: durationEwma ?? this.durationEwma,
+      successCount: successCount ?? this.successCount,
+      failureCount: failureCount ?? this.failureCount,
+      totalDownload: totalDownload ?? this.totalDownload,
+      lastUsedAt: lastUsedAt ?? this.lastUsedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (site.present) {
+      map['site'] = Variable<String>(site.value);
+    }
+    if (node.present) {
+      map['node'] = Variable<String>(node.value);
+    }
+    if (speedEwma.present) {
+      map['speed_ewma'] = Variable<double>(speedEwma.value);
+    }
+    if (durationEwma.present) {
+      map['duration_ewma'] = Variable<double>(durationEwma.value);
+    }
+    if (successCount.present) {
+      map['success_count'] = Variable<int>(successCount.value);
+    }
+    if (failureCount.present) {
+      map['failure_count'] = Variable<int>(failureCount.value);
+    }
+    if (totalDownload.present) {
+      map['total_download'] = Variable<int>(totalDownload.value);
+    }
+    if (lastUsedAt.present) {
+      map['last_used_at'] = Variable<DateTime>(lastUsedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SiteNodeStatsCompanion(')
+          ..write('site: $site, ')
+          ..write('node: $node, ')
+          ..write('speedEwma: $speedEwma, ')
+          ..write('durationEwma: $durationEwma, ')
+          ..write('successCount: $successCount, ')
+          ..write('failureCount: $failureCount, ')
+          ..write('totalDownload: $totalDownload, ')
+          ..write('lastUsedAt: $lastUsedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SiteConnectionLogsTable extends SiteConnectionLogs
+    with TableInfo<$SiteConnectionLogsTable, SiteConnectionLog> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SiteConnectionLogsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _siteMeta = const VerificationMeta('site');
+  @override
+  late final GeneratedColumn<String> site = GeneratedColumn<String>(
+    'site',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _nodeMeta = const VerificationMeta('node');
+  @override
+  late final GeneratedColumn<String> node = GeneratedColumn<String>(
+    'node',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _hostMeta = const VerificationMeta('host');
+  @override
+  late final GeneratedColumn<String> host = GeneratedColumn<String>(
+    'host',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _durationMillisMeta = const VerificationMeta(
+    'durationMillis',
+  );
+  @override
+  late final GeneratedColumn<int> durationMillis = GeneratedColumn<int>(
+    'duration_millis',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _downloadMeta = const VerificationMeta(
+    'download',
+  );
+  @override
+  late final GeneratedColumn<int> download = GeneratedColumn<int>(
+    'download',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _uploadMeta = const VerificationMeta('upload');
+  @override
+  late final GeneratedColumn<int> upload = GeneratedColumn<int>(
+    'upload',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _startMillisMeta = const VerificationMeta(
+    'startMillis',
+  );
+  @override
+  late final GeneratedColumn<int> startMillis = GeneratedColumn<int>(
+    'start_millis',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _closedAtMeta = const VerificationMeta(
+    'closedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> closedAt = GeneratedColumn<DateTime>(
+    'closed_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    site,
+    node,
+    host,
+    durationMillis,
+    download,
+    upload,
+    startMillis,
+    closedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'site_connection_logs';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SiteConnectionLog> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('site')) {
+      context.handle(
+        _siteMeta,
+        site.isAcceptableOrUnknown(data['site']!, _siteMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_siteMeta);
+    }
+    if (data.containsKey('node')) {
+      context.handle(
+        _nodeMeta,
+        node.isAcceptableOrUnknown(data['node']!, _nodeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nodeMeta);
+    }
+    if (data.containsKey('host')) {
+      context.handle(
+        _hostMeta,
+        host.isAcceptableOrUnknown(data['host']!, _hostMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_hostMeta);
+    }
+    if (data.containsKey('duration_millis')) {
+      context.handle(
+        _durationMillisMeta,
+        durationMillis.isAcceptableOrUnknown(
+          data['duration_millis']!,
+          _durationMillisMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_durationMillisMeta);
+    }
+    if (data.containsKey('download')) {
+      context.handle(
+        _downloadMeta,
+        download.isAcceptableOrUnknown(data['download']!, _downloadMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_downloadMeta);
+    }
+    if (data.containsKey('upload')) {
+      context.handle(
+        _uploadMeta,
+        upload.isAcceptableOrUnknown(data['upload']!, _uploadMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_uploadMeta);
+    }
+    if (data.containsKey('start_millis')) {
+      context.handle(
+        _startMillisMeta,
+        startMillis.isAcceptableOrUnknown(
+          data['start_millis']!,
+          _startMillisMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_startMillisMeta);
+    }
+    if (data.containsKey('closed_at')) {
+      context.handle(
+        _closedAtMeta,
+        closedAt.isAcceptableOrUnknown(data['closed_at']!, _closedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_closedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SiteConnectionLog map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SiteConnectionLog(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      site: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}site'],
+      )!,
+      node: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}node'],
+      )!,
+      host: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}host'],
+      )!,
+      durationMillis: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}duration_millis'],
+      )!,
+      download: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}download'],
+      )!,
+      upload: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}upload'],
+      )!,
+      startMillis: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}start_millis'],
+      )!,
+      closedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}closed_at'],
+      )!,
+    );
+  }
+
+  @override
+  $SiteConnectionLogsTable createAlias(String alias) {
+    return $SiteConnectionLogsTable(attachedDatabase, alias);
+  }
+}
+
+class SiteConnectionLog extends DataClass
+    implements Insertable<SiteConnectionLog> {
+  final int id;
+  final String site;
+  final String node;
+
+  /// Raw host the connection carried, kept apart from the normalized site.
+  final String host;
+  final int durationMillis;
+  final int download;
+  final int upload;
+  final int startMillis;
+  final DateTime closedAt;
+  const SiteConnectionLog({
+    required this.id,
+    required this.site,
+    required this.node,
+    required this.host,
+    required this.durationMillis,
+    required this.download,
+    required this.upload,
+    required this.startMillis,
+    required this.closedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['site'] = Variable<String>(site);
+    map['node'] = Variable<String>(node);
+    map['host'] = Variable<String>(host);
+    map['duration_millis'] = Variable<int>(durationMillis);
+    map['download'] = Variable<int>(download);
+    map['upload'] = Variable<int>(upload);
+    map['start_millis'] = Variable<int>(startMillis);
+    map['closed_at'] = Variable<DateTime>(closedAt);
+    return map;
+  }
+
+  SiteConnectionLogsCompanion toCompanion(bool nullToAbsent) {
+    return SiteConnectionLogsCompanion(
+      id: Value(id),
+      site: Value(site),
+      node: Value(node),
+      host: Value(host),
+      durationMillis: Value(durationMillis),
+      download: Value(download),
+      upload: Value(upload),
+      startMillis: Value(startMillis),
+      closedAt: Value(closedAt),
+    );
+  }
+
+  factory SiteConnectionLog.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SiteConnectionLog(
+      id: serializer.fromJson<int>(json['id']),
+      site: serializer.fromJson<String>(json['site']),
+      node: serializer.fromJson<String>(json['node']),
+      host: serializer.fromJson<String>(json['host']),
+      durationMillis: serializer.fromJson<int>(json['durationMillis']),
+      download: serializer.fromJson<int>(json['download']),
+      upload: serializer.fromJson<int>(json['upload']),
+      startMillis: serializer.fromJson<int>(json['startMillis']),
+      closedAt: serializer.fromJson<DateTime>(json['closedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'site': serializer.toJson<String>(site),
+      'node': serializer.toJson<String>(node),
+      'host': serializer.toJson<String>(host),
+      'durationMillis': serializer.toJson<int>(durationMillis),
+      'download': serializer.toJson<int>(download),
+      'upload': serializer.toJson<int>(upload),
+      'startMillis': serializer.toJson<int>(startMillis),
+      'closedAt': serializer.toJson<DateTime>(closedAt),
+    };
+  }
+
+  SiteConnectionLog copyWith({
+    int? id,
+    String? site,
+    String? node,
+    String? host,
+    int? durationMillis,
+    int? download,
+    int? upload,
+    int? startMillis,
+    DateTime? closedAt,
+  }) => SiteConnectionLog(
+    id: id ?? this.id,
+    site: site ?? this.site,
+    node: node ?? this.node,
+    host: host ?? this.host,
+    durationMillis: durationMillis ?? this.durationMillis,
+    download: download ?? this.download,
+    upload: upload ?? this.upload,
+    startMillis: startMillis ?? this.startMillis,
+    closedAt: closedAt ?? this.closedAt,
+  );
+  SiteConnectionLog copyWithCompanion(SiteConnectionLogsCompanion data) {
+    return SiteConnectionLog(
+      id: data.id.present ? data.id.value : this.id,
+      site: data.site.present ? data.site.value : this.site,
+      node: data.node.present ? data.node.value : this.node,
+      host: data.host.present ? data.host.value : this.host,
+      durationMillis: data.durationMillis.present
+          ? data.durationMillis.value
+          : this.durationMillis,
+      download: data.download.present ? data.download.value : this.download,
+      upload: data.upload.present ? data.upload.value : this.upload,
+      startMillis: data.startMillis.present
+          ? data.startMillis.value
+          : this.startMillis,
+      closedAt: data.closedAt.present ? data.closedAt.value : this.closedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SiteConnectionLog(')
+          ..write('id: $id, ')
+          ..write('site: $site, ')
+          ..write('node: $node, ')
+          ..write('host: $host, ')
+          ..write('durationMillis: $durationMillis, ')
+          ..write('download: $download, ')
+          ..write('upload: $upload, ')
+          ..write('startMillis: $startMillis, ')
+          ..write('closedAt: $closedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    site,
+    node,
+    host,
+    durationMillis,
+    download,
+    upload,
+    startMillis,
+    closedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SiteConnectionLog &&
+          other.id == this.id &&
+          other.site == this.site &&
+          other.node == this.node &&
+          other.host == this.host &&
+          other.durationMillis == this.durationMillis &&
+          other.download == this.download &&
+          other.upload == this.upload &&
+          other.startMillis == this.startMillis &&
+          other.closedAt == this.closedAt);
+}
+
+class SiteConnectionLogsCompanion extends UpdateCompanion<SiteConnectionLog> {
+  final Value<int> id;
+  final Value<String> site;
+  final Value<String> node;
+  final Value<String> host;
+  final Value<int> durationMillis;
+  final Value<int> download;
+  final Value<int> upload;
+  final Value<int> startMillis;
+  final Value<DateTime> closedAt;
+  const SiteConnectionLogsCompanion({
+    this.id = const Value.absent(),
+    this.site = const Value.absent(),
+    this.node = const Value.absent(),
+    this.host = const Value.absent(),
+    this.durationMillis = const Value.absent(),
+    this.download = const Value.absent(),
+    this.upload = const Value.absent(),
+    this.startMillis = const Value.absent(),
+    this.closedAt = const Value.absent(),
+  });
+  SiteConnectionLogsCompanion.insert({
+    this.id = const Value.absent(),
+    required String site,
+    required String node,
+    required String host,
+    required int durationMillis,
+    required int download,
+    required int upload,
+    required int startMillis,
+    required DateTime closedAt,
+  }) : site = Value(site),
+       node = Value(node),
+       host = Value(host),
+       durationMillis = Value(durationMillis),
+       download = Value(download),
+       upload = Value(upload),
+       startMillis = Value(startMillis),
+       closedAt = Value(closedAt);
+  static Insertable<SiteConnectionLog> custom({
+    Expression<int>? id,
+    Expression<String>? site,
+    Expression<String>? node,
+    Expression<String>? host,
+    Expression<int>? durationMillis,
+    Expression<int>? download,
+    Expression<int>? upload,
+    Expression<int>? startMillis,
+    Expression<DateTime>? closedAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (site != null) 'site': site,
+      if (node != null) 'node': node,
+      if (host != null) 'host': host,
+      if (durationMillis != null) 'duration_millis': durationMillis,
+      if (download != null) 'download': download,
+      if (upload != null) 'upload': upload,
+      if (startMillis != null) 'start_millis': startMillis,
+      if (closedAt != null) 'closed_at': closedAt,
+    });
+  }
+
+  SiteConnectionLogsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? site,
+    Value<String>? node,
+    Value<String>? host,
+    Value<int>? durationMillis,
+    Value<int>? download,
+    Value<int>? upload,
+    Value<int>? startMillis,
+    Value<DateTime>? closedAt,
+  }) {
+    return SiteConnectionLogsCompanion(
+      id: id ?? this.id,
+      site: site ?? this.site,
+      node: node ?? this.node,
+      host: host ?? this.host,
+      durationMillis: durationMillis ?? this.durationMillis,
+      download: download ?? this.download,
+      upload: upload ?? this.upload,
+      startMillis: startMillis ?? this.startMillis,
+      closedAt: closedAt ?? this.closedAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (site.present) {
+      map['site'] = Variable<String>(site.value);
+    }
+    if (node.present) {
+      map['node'] = Variable<String>(node.value);
+    }
+    if (host.present) {
+      map['host'] = Variable<String>(host.value);
+    }
+    if (durationMillis.present) {
+      map['duration_millis'] = Variable<int>(durationMillis.value);
+    }
+    if (download.present) {
+      map['download'] = Variable<int>(download.value);
+    }
+    if (upload.present) {
+      map['upload'] = Variable<int>(upload.value);
+    }
+    if (startMillis.present) {
+      map['start_millis'] = Variable<int>(startMillis.value);
+    }
+    if (closedAt.present) {
+      map['closed_at'] = Variable<DateTime>(closedAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SiteConnectionLogsCompanion(')
+          ..write('id: $id, ')
+          ..write('site: $site, ')
+          ..write('node: $node, ')
+          ..write('host: $host, ')
+          ..write('durationMillis: $durationMillis, ')
+          ..write('download: $download, ')
+          ..write('upload: $upload, ')
+          ..write('startMillis: $startMillis, ')
+          ..write('closedAt: $closedAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$Database extends GeneratedDatabase {
   _$Database(QueryExecutor e) : super(e);
   $DatabaseManager get managers => $DatabaseManager(this);
@@ -5256,6 +6356,9 @@ abstract class _$Database extends GeneratedDatabase {
   late final $ProxyDialersTable proxyDialers = $ProxyDialersTable(this);
   late final $IpQualitiesTable ipQualities = $IpQualitiesTable(this);
   late final $MitmModulesTable mitmModules = $MitmModulesTable(this);
+  late final $SiteNodeStatsTable siteNodeStats = $SiteNodeStatsTable(this);
+  late final $SiteConnectionLogsTable siteConnectionLogs =
+      $SiteConnectionLogsTable(this);
   late final Index idxRuleTarget = Index(
     'idx_rule_target',
     'CREATE INDEX idx_rule_target ON rules (rule_target)',
@@ -5289,6 +6392,9 @@ abstract class _$Database extends GeneratedDatabase {
   );
   late final IpQualitiesDao ipQualitiesDao = IpQualitiesDao(this as Database);
   late final MitmModulesDao mitmModulesDao = MitmModulesDao(this as Database);
+  late final SiteNodeStatsDao siteNodeStatsDao = SiteNodeStatsDao(
+    this as Database,
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -5306,6 +6412,8 @@ abstract class _$Database extends GeneratedDatabase {
     proxyDialers,
     ipQualities,
     mitmModules,
+    siteNodeStats,
+    siteConnectionLogs,
     idxRuleTarget,
     idxRulesProfileOrder,
     idxProxyGroupsProfileOrder,
@@ -9412,6 +10520,576 @@ typedef $$MitmModulesTableProcessedTableManager =
       RawMitmModule,
       PrefetchHooks Function()
     >;
+typedef $$SiteNodeStatsTableCreateCompanionBuilder =
+    SiteNodeStatsCompanion Function({
+      required String site,
+      required String node,
+      Value<double> speedEwma,
+      Value<double> durationEwma,
+      Value<int> successCount,
+      Value<int> failureCount,
+      Value<int> totalDownload,
+      required DateTime lastUsedAt,
+      Value<int> rowid,
+    });
+typedef $$SiteNodeStatsTableUpdateCompanionBuilder =
+    SiteNodeStatsCompanion Function({
+      Value<String> site,
+      Value<String> node,
+      Value<double> speedEwma,
+      Value<double> durationEwma,
+      Value<int> successCount,
+      Value<int> failureCount,
+      Value<int> totalDownload,
+      Value<DateTime> lastUsedAt,
+      Value<int> rowid,
+    });
+
+class $$SiteNodeStatsTableFilterComposer
+    extends Composer<_$Database, $SiteNodeStatsTable> {
+  $$SiteNodeStatsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get site => $composableBuilder(
+    column: $table.site,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get node => $composableBuilder(
+    column: $table.node,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get speedEwma => $composableBuilder(
+    column: $table.speedEwma,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get durationEwma => $composableBuilder(
+    column: $table.durationEwma,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get successCount => $composableBuilder(
+    column: $table.successCount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get failureCount => $composableBuilder(
+    column: $table.failureCount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get totalDownload => $composableBuilder(
+    column: $table.totalDownload,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get lastUsedAt => $composableBuilder(
+    column: $table.lastUsedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$SiteNodeStatsTableOrderingComposer
+    extends Composer<_$Database, $SiteNodeStatsTable> {
+  $$SiteNodeStatsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get site => $composableBuilder(
+    column: $table.site,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get node => $composableBuilder(
+    column: $table.node,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get speedEwma => $composableBuilder(
+    column: $table.speedEwma,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get durationEwma => $composableBuilder(
+    column: $table.durationEwma,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get successCount => $composableBuilder(
+    column: $table.successCount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get failureCount => $composableBuilder(
+    column: $table.failureCount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get totalDownload => $composableBuilder(
+    column: $table.totalDownload,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get lastUsedAt => $composableBuilder(
+    column: $table.lastUsedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$SiteNodeStatsTableAnnotationComposer
+    extends Composer<_$Database, $SiteNodeStatsTable> {
+  $$SiteNodeStatsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get site =>
+      $composableBuilder(column: $table.site, builder: (column) => column);
+
+  GeneratedColumn<String> get node =>
+      $composableBuilder(column: $table.node, builder: (column) => column);
+
+  GeneratedColumn<double> get speedEwma =>
+      $composableBuilder(column: $table.speedEwma, builder: (column) => column);
+
+  GeneratedColumn<double> get durationEwma => $composableBuilder(
+    column: $table.durationEwma,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get successCount => $composableBuilder(
+    column: $table.successCount,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get failureCount => $composableBuilder(
+    column: $table.failureCount,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get totalDownload => $composableBuilder(
+    column: $table.totalDownload,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get lastUsedAt => $composableBuilder(
+    column: $table.lastUsedAt,
+    builder: (column) => column,
+  );
+}
+
+class $$SiteNodeStatsTableTableManager
+    extends
+        RootTableManager<
+          _$Database,
+          $SiteNodeStatsTable,
+          SiteNodeStat,
+          $$SiteNodeStatsTableFilterComposer,
+          $$SiteNodeStatsTableOrderingComposer,
+          $$SiteNodeStatsTableAnnotationComposer,
+          $$SiteNodeStatsTableCreateCompanionBuilder,
+          $$SiteNodeStatsTableUpdateCompanionBuilder,
+          (
+            SiteNodeStat,
+            BaseReferences<_$Database, $SiteNodeStatsTable, SiteNodeStat>,
+          ),
+          SiteNodeStat,
+          PrefetchHooks Function()
+        > {
+  $$SiteNodeStatsTableTableManager(_$Database db, $SiteNodeStatsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SiteNodeStatsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SiteNodeStatsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SiteNodeStatsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> site = const Value.absent(),
+                Value<String> node = const Value.absent(),
+                Value<double> speedEwma = const Value.absent(),
+                Value<double> durationEwma = const Value.absent(),
+                Value<int> successCount = const Value.absent(),
+                Value<int> failureCount = const Value.absent(),
+                Value<int> totalDownload = const Value.absent(),
+                Value<DateTime> lastUsedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SiteNodeStatsCompanion(
+                site: site,
+                node: node,
+                speedEwma: speedEwma,
+                durationEwma: durationEwma,
+                successCount: successCount,
+                failureCount: failureCount,
+                totalDownload: totalDownload,
+                lastUsedAt: lastUsedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String site,
+                required String node,
+                Value<double> speedEwma = const Value.absent(),
+                Value<double> durationEwma = const Value.absent(),
+                Value<int> successCount = const Value.absent(),
+                Value<int> failureCount = const Value.absent(),
+                Value<int> totalDownload = const Value.absent(),
+                required DateTime lastUsedAt,
+                Value<int> rowid = const Value.absent(),
+              }) => SiteNodeStatsCompanion.insert(
+                site: site,
+                node: node,
+                speedEwma: speedEwma,
+                durationEwma: durationEwma,
+                successCount: successCount,
+                failureCount: failureCount,
+                totalDownload: totalDownload,
+                lastUsedAt: lastUsedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$SiteNodeStatsTable, SiteNodeStat>(table),
+                  BaseReferences<_$Database, $SiteNodeStatsTable, SiteNodeStat>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$SiteNodeStatsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$Database,
+      $SiteNodeStatsTable,
+      SiteNodeStat,
+      $$SiteNodeStatsTableFilterComposer,
+      $$SiteNodeStatsTableOrderingComposer,
+      $$SiteNodeStatsTableAnnotationComposer,
+      $$SiteNodeStatsTableCreateCompanionBuilder,
+      $$SiteNodeStatsTableUpdateCompanionBuilder,
+      (
+        SiteNodeStat,
+        BaseReferences<_$Database, $SiteNodeStatsTable, SiteNodeStat>,
+      ),
+      SiteNodeStat,
+      PrefetchHooks Function()
+    >;
+typedef $$SiteConnectionLogsTableCreateCompanionBuilder =
+    SiteConnectionLogsCompanion Function({
+      Value<int> id,
+      required String site,
+      required String node,
+      required String host,
+      required int durationMillis,
+      required int download,
+      required int upload,
+      required int startMillis,
+      required DateTime closedAt,
+    });
+typedef $$SiteConnectionLogsTableUpdateCompanionBuilder =
+    SiteConnectionLogsCompanion Function({
+      Value<int> id,
+      Value<String> site,
+      Value<String> node,
+      Value<String> host,
+      Value<int> durationMillis,
+      Value<int> download,
+      Value<int> upload,
+      Value<int> startMillis,
+      Value<DateTime> closedAt,
+    });
+
+class $$SiteConnectionLogsTableFilterComposer
+    extends Composer<_$Database, $SiteConnectionLogsTable> {
+  $$SiteConnectionLogsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get site => $composableBuilder(
+    column: $table.site,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get node => $composableBuilder(
+    column: $table.node,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get host => $composableBuilder(
+    column: $table.host,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get durationMillis => $composableBuilder(
+    column: $table.durationMillis,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get download => $composableBuilder(
+    column: $table.download,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get upload => $composableBuilder(
+    column: $table.upload,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get startMillis => $composableBuilder(
+    column: $table.startMillis,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get closedAt => $composableBuilder(
+    column: $table.closedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$SiteConnectionLogsTableOrderingComposer
+    extends Composer<_$Database, $SiteConnectionLogsTable> {
+  $$SiteConnectionLogsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get site => $composableBuilder(
+    column: $table.site,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get node => $composableBuilder(
+    column: $table.node,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get host => $composableBuilder(
+    column: $table.host,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get durationMillis => $composableBuilder(
+    column: $table.durationMillis,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get download => $composableBuilder(
+    column: $table.download,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get upload => $composableBuilder(
+    column: $table.upload,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get startMillis => $composableBuilder(
+    column: $table.startMillis,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get closedAt => $composableBuilder(
+    column: $table.closedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$SiteConnectionLogsTableAnnotationComposer
+    extends Composer<_$Database, $SiteConnectionLogsTable> {
+  $$SiteConnectionLogsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get site =>
+      $composableBuilder(column: $table.site, builder: (column) => column);
+
+  GeneratedColumn<String> get node =>
+      $composableBuilder(column: $table.node, builder: (column) => column);
+
+  GeneratedColumn<String> get host =>
+      $composableBuilder(column: $table.host, builder: (column) => column);
+
+  GeneratedColumn<int> get durationMillis => $composableBuilder(
+    column: $table.durationMillis,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get download =>
+      $composableBuilder(column: $table.download, builder: (column) => column);
+
+  GeneratedColumn<int> get upload =>
+      $composableBuilder(column: $table.upload, builder: (column) => column);
+
+  GeneratedColumn<int> get startMillis => $composableBuilder(
+    column: $table.startMillis,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get closedAt =>
+      $composableBuilder(column: $table.closedAt, builder: (column) => column);
+}
+
+class $$SiteConnectionLogsTableTableManager
+    extends
+        RootTableManager<
+          _$Database,
+          $SiteConnectionLogsTable,
+          SiteConnectionLog,
+          $$SiteConnectionLogsTableFilterComposer,
+          $$SiteConnectionLogsTableOrderingComposer,
+          $$SiteConnectionLogsTableAnnotationComposer,
+          $$SiteConnectionLogsTableCreateCompanionBuilder,
+          $$SiteConnectionLogsTableUpdateCompanionBuilder,
+          (
+            SiteConnectionLog,
+            BaseReferences<
+              _$Database,
+              $SiteConnectionLogsTable,
+              SiteConnectionLog
+            >,
+          ),
+          SiteConnectionLog,
+          PrefetchHooks Function()
+        > {
+  $$SiteConnectionLogsTableTableManager(
+    _$Database db,
+    $SiteConnectionLogsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SiteConnectionLogsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SiteConnectionLogsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SiteConnectionLogsTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> site = const Value.absent(),
+                Value<String> node = const Value.absent(),
+                Value<String> host = const Value.absent(),
+                Value<int> durationMillis = const Value.absent(),
+                Value<int> download = const Value.absent(),
+                Value<int> upload = const Value.absent(),
+                Value<int> startMillis = const Value.absent(),
+                Value<DateTime> closedAt = const Value.absent(),
+              }) => SiteConnectionLogsCompanion(
+                id: id,
+                site: site,
+                node: node,
+                host: host,
+                durationMillis: durationMillis,
+                download: download,
+                upload: upload,
+                startMillis: startMillis,
+                closedAt: closedAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String site,
+                required String node,
+                required String host,
+                required int durationMillis,
+                required int download,
+                required int upload,
+                required int startMillis,
+                required DateTime closedAt,
+              }) => SiteConnectionLogsCompanion.insert(
+                id: id,
+                site: site,
+                node: node,
+                host: host,
+                durationMillis: durationMillis,
+                download: download,
+                upload: upload,
+                startMillis: startMillis,
+                closedAt: closedAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$SiteConnectionLogsTable, SiteConnectionLog>(
+                    table,
+                  ),
+                  BaseReferences<
+                    _$Database,
+                    $SiteConnectionLogsTable,
+                    SiteConnectionLog
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$SiteConnectionLogsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$Database,
+      $SiteConnectionLogsTable,
+      SiteConnectionLog,
+      $$SiteConnectionLogsTableFilterComposer,
+      $$SiteConnectionLogsTableOrderingComposer,
+      $$SiteConnectionLogsTableAnnotationComposer,
+      $$SiteConnectionLogsTableCreateCompanionBuilder,
+      $$SiteConnectionLogsTableUpdateCompanionBuilder,
+      (
+        SiteConnectionLog,
+        BaseReferences<_$Database, $SiteConnectionLogsTable, SiteConnectionLog>,
+      ),
+      SiteConnectionLog,
+      PrefetchHooks Function()
+    >;
 
 class $DatabaseManager {
   final _$Database _db;
@@ -9440,6 +11118,10 @@ class $DatabaseManager {
       $$IpQualitiesTableTableManager(_db, _db.ipQualities);
   $$MitmModulesTableTableManager get mitmModules =>
       $$MitmModulesTableTableManager(_db, _db.mitmModules);
+  $$SiteNodeStatsTableTableManager get siteNodeStats =>
+      $$SiteNodeStatsTableTableManager(_db, _db.siteNodeStats);
+  $$SiteConnectionLogsTableTableManager get siteConnectionLogs =>
+      $$SiteConnectionLogsTableTableManager(_db, _db.siteConnectionLogs);
 }
 
 mixin _$ProfilesDaoMixin on DatabaseAccessor<Database> {
@@ -9590,4 +11272,23 @@ class MitmModulesDaoManager {
   MitmModulesDaoManager(this._db);
   $$MitmModulesTableTableManager get mitmModules =>
       $$MitmModulesTableTableManager(_db.attachedDatabase, _db.mitmModules);
+}
+
+mixin _$SiteNodeStatsDaoMixin on DatabaseAccessor<Database> {
+  $SiteNodeStatsTable get siteNodeStats => attachedDatabase.siteNodeStats;
+  $SiteConnectionLogsTable get siteConnectionLogs =>
+      attachedDatabase.siteConnectionLogs;
+  SiteNodeStatsDaoManager get managers => SiteNodeStatsDaoManager(this);
+}
+
+class SiteNodeStatsDaoManager {
+  final _$SiteNodeStatsDaoMixin _db;
+  SiteNodeStatsDaoManager(this._db);
+  $$SiteNodeStatsTableTableManager get siteNodeStats =>
+      $$SiteNodeStatsTableTableManager(_db.attachedDatabase, _db.siteNodeStats);
+  $$SiteConnectionLogsTableTableManager get siteConnectionLogs =>
+      $$SiteConnectionLogsTableTableManager(
+        _db.attachedDatabase,
+        _db.siteConnectionLogs,
+      );
 }

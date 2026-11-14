@@ -412,6 +412,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "autoSetSystemDns": MessageLookupByLibrary.simpleMessage(
       "Définir automatiquement le DNS du système",
     ),
+    "autoSiteNodeSwitch": MessageLookupByLibrary.simpleMessage(
+      "Changement automatique de nœud par site",
+    ),
+    "autoSiteNodeSwitchTip": MessageLookupByLibrary.simpleMessage(
+      "Choisit le nœud de chaque site d\'après l\'historique enregistré plutôt qu\'un test de vitesse fixe",
+    ),
     "autoUpdate": MessageLookupByLibrary.simpleMessage(
       "Mise à jour automatique",
     ),
@@ -1755,6 +1761,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "recordType": MessageLookupByLibrary.simpleMessage("Type d’enregistrement"),
     "redirPort": MessageLookupByLibrary.simpleMessage("Port Redir"),
     "redo": MessageLookupByLibrary.simpleMessage("Rétablir"),
+    "refresh": MessageLookupByLibrary.simpleMessage("Actualiser"),
     "regenerateCertificate": MessageLookupByLibrary.simpleMessage(
       "Régénérer le certificat",
     ),
@@ -2113,6 +2120,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Saisissez un seul lien ici ; pour en modifier plusieurs, utilisez la modification rapide de la liste",
     ),
     "singleValueTip": m94,
+    "siteStats": MessageLookupByLibrary.simpleMessage("Statistiques du site"),
+    "siteStatsEmpty": MessageLookupByLibrary.simpleMessage(
+      "Aucun enregistrement de site",
+    ),
     "size": MessageLookupByLibrary.simpleMessage("Taille"),
     "skipCertVerify": MessageLookupByLibrary.simpleMessage(
       "Ignorer la vérification du certificat",

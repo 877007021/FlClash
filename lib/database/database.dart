@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math' as math;
 
 import 'package:collection/collection.dart';
 import 'package:drift/drift.dart';
@@ -22,6 +23,7 @@ part 'mitm_modules.dart';
 part 'profiles.dart';
 part 'rules.dart';
 part 'scripts.dart';
+part 'site_node_stats.dart';
 
 @DriftDatabase(
   tables: [
@@ -37,6 +39,8 @@ part 'scripts.dart';
     ProxyDialers,
     IpQualities,
     MitmModules,
+    SiteNodeStats,
+    SiteConnectionLogs,
   ],
   daos: [
     ProfilesDao,
@@ -50,13 +54,14 @@ part 'scripts.dart';
     ProxyDialersDao,
     IpQualitiesDao,
     MitmModulesDao,
+    SiteNodeStatsDao,
   ],
 )
 class Database extends _$Database {
   Database([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 23;
+  int get schemaVersion => 24;
 
   static LazyDatabase _openConnection() {
     return LazyDatabase(() async {
@@ -125,6 +130,10 @@ class Database extends _$Database {
         }
         if (from < 23) {
           await m.alterTable(TableMigration(mitmModules));
+        }
+        if (from < 24) {
+          await _createTableIfMissing(m, siteNodeStats);
+          await _createTableIfMissing(m, siteConnectionLogs);
         }
       }),
       beforeOpen: (_) => customStatement('PRAGMA foreign_keys = ON'),

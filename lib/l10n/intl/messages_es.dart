@@ -410,6 +410,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "autoSetSystemDns": MessageLookupByLibrary.simpleMessage(
       "Configurar DNS del sistema automáticamente",
     ),
+    "autoSiteNodeSwitch": MessageLookupByLibrary.simpleMessage(
+      "Cambio automático de nodo por sitio",
+    ),
+    "autoSiteNodeSwitchTip": MessageLookupByLibrary.simpleMessage(
+      "Elige el nodo de cada sitio según el historial registrado en lugar de una prueba de velocidad fija",
+    ),
     "autoUpdate": MessageLookupByLibrary.simpleMessage(
       "Actualización automática",
     ),
@@ -1751,6 +1757,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "recordType": MessageLookupByLibrary.simpleMessage("Tipo de registro"),
     "redirPort": MessageLookupByLibrary.simpleMessage("Puerto Redir"),
     "redo": MessageLookupByLibrary.simpleMessage("Rehacer"),
+    "refresh": MessageLookupByLibrary.simpleMessage("Actualizar"),
     "regenerateCertificate": MessageLookupByLibrary.simpleMessage(
       "Regenerar certificado",
     ),
@@ -2111,6 +2118,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Introduce aquí un solo enlace; para varios, usa la edición rápida de la lista",
     ),
     "singleValueTip": m94,
+    "siteStats": MessageLookupByLibrary.simpleMessage("Estadísticas del sitio"),
+    "siteStatsEmpty": MessageLookupByLibrary.simpleMessage(
+      "Aún no hay registros de sitios",
+    ),
     "size": MessageLookupByLibrary.simpleMessage("Tamaño"),
     "skipCertVerify": MessageLookupByLibrary.simpleMessage(
       "Omitir verificación de certificado",

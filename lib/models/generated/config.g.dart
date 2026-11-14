@@ -95,6 +95,7 @@ _AppSettingProps _$AppSettingPropsFromJson(
         (k, e) => MapEntry(k, e as String),
       ) ??
       const {},
+  autoSiteNodeSwitch: json['autoSiteNodeSwitch'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$AppSettingPropsToJson(_AppSettingProps instance) =>
@@ -133,6 +134,7 @@ Map<String, dynamic> _$AppSettingPropsToJson(_AppSettingProps instance) =>
       'disabledServices': instance.disabledServices,
       'tableColumnWidths': instance.tableColumnWidths,
       'recordGroupings': instance.recordGroupings,
+      'autoSiteNodeSwitch': instance.autoSiteNodeSwitch,
     };
 
 const _$RequestFeedEnumMap = {

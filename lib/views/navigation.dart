@@ -50,6 +50,12 @@ class Navigation implements NavigationPort {
         modes: [NavigationItemMode.more],
       ),
       NavigationItem(
+        glyph: AppGlyphs.speed,
+        label: PageLabel.siteStats,
+        builder: (_) => const SiteStatsView(),
+        modes: [NavigationItemMode.more],
+      ),
+      NavigationItem(
         glyph: AppGlyphs.logs,
         label: PageLabel.logs,
         builder: (_) => const LogsView(),

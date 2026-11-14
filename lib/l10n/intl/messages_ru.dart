@@ -401,6 +401,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "autoSetSystemDns": MessageLookupByLibrary.simpleMessage(
       "Автонастройка системного DNS",
     ),
+    "autoSiteNodeSwitch": MessageLookupByLibrary.simpleMessage(
+      "Автоматическое переключение узла по сайту",
+    ),
+    "autoSiteNodeSwitchTip": MessageLookupByLibrary.simpleMessage(
+      "Выбирает узел для каждого сайта по записанной истории, а не по фиксированному тесту скорости",
+    ),
     "autoUpdate": MessageLookupByLibrary.simpleMessage("Автообновление"),
     "autoUpdateInterval": MessageLookupByLibrary.simpleMessage(
       "Интервал автообновления",
@@ -1704,6 +1710,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "recordType": MessageLookupByLibrary.simpleMessage("Тип записи"),
     "redirPort": MessageLookupByLibrary.simpleMessage("Порт Redir"),
     "redo": MessageLookupByLibrary.simpleMessage("Повторить"),
+    "refresh": MessageLookupByLibrary.simpleMessage("Обновить"),
     "regenerateCertificate": MessageLookupByLibrary.simpleMessage(
       "Пересоздать сертификат",
     ),
@@ -2050,6 +2057,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Здесь укажите одну ссылку, несколько можно задать в быстром редактировании списка",
     ),
     "singleValueTip": m94,
+    "siteStats": MessageLookupByLibrary.simpleMessage("Статистика сайтов"),
+    "siteStatsEmpty": MessageLookupByLibrary.simpleMessage(
+      "Записей о сайтах пока нет",
+    ),
     "size": MessageLookupByLibrary.simpleMessage("Размер"),
     "skipCertVerify": MessageLookupByLibrary.simpleMessage(
       "Пропускать проверку сертификата",

@@ -34,6 +34,7 @@ const (
 	profileClearEffectMethod CoreMethod = "profile.clearEffect"
 
 	proxyListMethod       CoreMethod = "proxy.list"
+	siteOverridesMethod   CoreMethod = "site.overrides"
 	proxySelectMethod     CoreMethod = "proxy.select"
 	proxyDefinitionMethod CoreMethod = "proxy.definition"
 	proxyTestDelayMethod  CoreMethod = "proxy.testDelay"

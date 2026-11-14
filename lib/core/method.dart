@@ -20,6 +20,7 @@ enum CoreMethod {
   profileClearEffect('profile.clearEffect'),
   proxyList('proxy.list'),
   proxySelect('proxy.select'),
+  siteOverrides('site.overrides'),
   proxyDefinition('proxy.definition'),
   proxyTestDelay('proxy.testDelay'),
   proxyValidate('proxy.validate'),
