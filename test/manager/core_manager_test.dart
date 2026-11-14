@@ -81,6 +81,7 @@ _MockCoreHandlerInterface _coreInterface() {
   final coreInterface = _MockCoreHandlerInterface();
   when(() => coreInterface.startLog()).thenAnswer((_) async {});
   when(() => coreInterface.stopLog()).thenAnswer((_) async {});
+  when(() => coreInterface.setSiteOverrides(any())).thenAnswer((_) async {});
   return coreInterface;
 }
 
@@ -164,8 +165,7 @@ void main() {
   testWidgets('duplicate crash events disconnect the core only once', (
     tester,
   ) async {
-    final coreInterface = _MockCoreHandlerInterface();
-    when(() => coreInterface.stopLog()).thenAnswer((_) async {});
+    final coreInterface = _coreInterface();
     final container = ProviderContainer(
       overrides: [
         coreHandlerProvider.overrideWithValue(
