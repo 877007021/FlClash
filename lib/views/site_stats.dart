@@ -86,7 +86,7 @@ class _SiteStatsViewState extends ConsumerState<SiteStatsView> {
       body: switch (stats) {
         null => const SizedBox.shrink(),
         [] => Center(child: Text(appLocalizations.siteStatsEmpty)),
-        _ => ListView.builder(
+        _ => PrismListView(
           itemCount: stats.length,
           itemBuilder: (context, index) {
             final stat = stats[index];
